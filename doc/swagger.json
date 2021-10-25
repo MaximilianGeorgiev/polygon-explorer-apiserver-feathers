@@ -1,0 +1,485 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Polygon-explorer-API:",
+        "description": "This api shows the features of the polygon-explorer. Find out more at [https://github.com/quanterall-academy-team4/polygon-explorer-backend](https://github.com/quanterall-academy-team4/polygon-explorer-backend)",
+        "version": "1.0.2"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3001/",
+            "description": "polygon explorer"
+        },
+        {
+            "url": "https://virtserver.swaggerhub.com/Bojidar00/polygon-explorer-api/1.0.0",
+            "description": "SwaggerHub API Auto Mocking"
+        }
+    ],
+    "paths": {
+        "/blocks/latest": {
+            "get": {
+                "tags": [
+                    "Blocks"
+                ],
+                "summary": "Get information about the last block.",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Block"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Block"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/blocks/ByNumber/OrHash/{arg}": {
+            "get": {
+                "tags": [
+                    "Blocks"
+                ],
+                "summary": "Get block by number or hash",
+                "parameters": [
+                    {
+                        "name": "arg",
+                        "in": "path",
+                        "required": true,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "oneOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "number"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Block"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Block"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/blocks/{from}/{count}": {
+            "get": {
+                "tags": [
+                    "Blocks"
+                ],
+                "summary": "Get X block after a number.",
+                "parameters": [
+                    {
+                        "name": "from",
+                        "in": "path",
+                        "required": true,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "path",
+                        "required": true,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Block"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Block"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/blocks/pending": {
+            "get": {
+                "tags": [
+                    "Blocks"
+                ],
+                "summary": "Get information about pending blocks.",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Block"
+                                        },
+                                        {
+                                            "type": "array"
+                                        }
+                                    ]
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Block"
+                                        },
+                                        {
+                                            "type": "array"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions/hash/{hash}": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get information about transaction.",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "required": true,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Transaction"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Transaction"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions/pending": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get information about pending transaction.",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Transaction"
+                                        },
+                                        {
+                                            "type": "array"
+                                        }
+                                    ]
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Transaction"
+                                        },
+                                        {
+                                            "type": "array"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions/address/{address}": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get transactions of address.",
+                "parameters": [
+                    {
+                        "name": "address",
+                        "in": "path",
+                        "required": true,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "number"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions/latest": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get information about the latest transaction.",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Transaction"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Transaction"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/addresses/{address}": {
+            "get": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Get account balance.",
+                "parameters": [
+                    {
+                        "name": "address",
+                        "in": "path",
+                        "required": true,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Block": {
+                "type": "object",
+                "properties": {
+                    "difficulty": {
+                        "type": "string"
+                    },
+                    "extraData": {
+                        "type": "string"
+                    },
+                    "gasLimit": {
+                        "type": "number"
+                    },
+                    "gasUsed": {
+                        "type": "number"
+                    },
+                    "hash": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "logsBloom": {
+                        "type": "string"
+                    },
+                    "miner": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "mixHash": {
+                        "type": "string"
+                    },
+                    "nonce": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "number": {
+                        "type": "number"
+                    },
+                    "parentHash": {
+                        "type": "string"
+                    },
+                    "receiptsRoot": {
+                        "type": "string"
+                    },
+                    "sha3Uncles": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "number"
+                    },
+                    "stateRoot": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "number",
+                        "format": "date-time"
+                    },
+                    "totalDifficulty": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "transactions": {
+                        "type": "array",
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/components/schemas/Transaction"
+                                },
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "uncles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "Transaction": {
+                "type": "object",
+                "properties": {
+                    "blockHash": {
+                        "type": "string"
+                    },
+                    "blockNumber": {
+                        "type": "number"
+                    },
+                    "from": {
+                        "type": "string"
+                    },
+                    "gas": {
+                        "type": "number"
+                    },
+                    "gasPrice": {
+                        "type": "string"
+                    },
+                    "hash": {
+                        "type": "string"
+                    },
+                    "input": {
+                        "type": "string"
+                    },
+                    "nonce": {
+                        "type": "number"
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "transactionIndex": {
+                        "type": "number"
+                    },
+                    "value": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "number"
+                    },
+                    "v": {
+                        "type": "string"
+                    },
+                    "r": {
+                        "type": "string"
+                    },
+                    "s": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
