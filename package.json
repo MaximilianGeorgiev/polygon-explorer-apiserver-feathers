@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage --forceExit --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,10 @@
     "@feathersjs/socketio": "^4.5.11"
   },
   "devDependencies": {
+    "axios": "^0.23.0",
+    "jest": "^27.3.1",
+    "jest-openapi": "^0.14.1",
+    "swagger-ui-express": "^4.1.6",
     "web3": "^1.6.0"
   }
 }

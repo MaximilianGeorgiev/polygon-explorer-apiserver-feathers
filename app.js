@@ -74,12 +74,17 @@ app.service('messages').create({
     text: 'Hello world from the server'
 });
 
-app.use('/address/:address', async (req, res) => {
-    app.use('/address/:address', new AddressService());
+/*
+app.use('/', async (req, res) => {
+    res.json("Hello World!");
+})*/
+
+app.use('/addresses/:address', async (req, res) => {
+    app.use('/addresses/:address', new AddressService());
 
     const message = await addressController.getAccountBalance(req.params.address);
 
-    app.service('address/:address').create({
+    app.service('addresses/:address').create({
         text: message
     });
 
