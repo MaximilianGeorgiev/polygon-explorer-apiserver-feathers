@@ -8,6 +8,9 @@ const addressController = require('./controllers/addresses');
 const BlockService = require('./services/blocks.js');
 const blockController = require('./controllers/blocks');
 
+const TransactionService = require('./services/transactions.js');
+const transactionController = require('./controllers/transactions');
+
 // A messages service that allows to create new
 // and return all existing messages
 class MessageService {
@@ -140,6 +143,64 @@ app.use('/blocks/:from/:count', async (req, res) => {
         message: message
     });
 });
+
+app.use('/transactions/latest', async (req, res) => {
+    app.use('/transactions/latest', new TransactionService());
+
+    const message = await transactionController.getLatestTransaction();
+
+    app.service('/transactions/latest').create({
+        text: message
+    });
+
+    res.json({
+        message: message
+    });
+});
+
+app.use('/transactions/pending', async (req, res) => {
+    app.use('/transactions/pending', new TransactionService());
+
+    const message = await transactionController.getPendingTransactions();
+
+    app.service('/transactions/pending').create({
+        text: message
+    });
+
+    res.json({
+        message: message
+    });
+});
+
+app.use('/transactions/hash/:hash', async (req, res) => {
+    app.use('/transactions/hash/:hash', new TransactionService());
+
+    const message = await transactionController.getTransactionByHash(req.params.hash);
+
+    app.service('/transactions/hash/:hash').create({
+        text: message
+    });
+
+    res.json({
+        message: message
+    });
+});
+
+app.use('/transactions/address/:address', async (req, res) => {
+    app.use('/transactions/address/:address', new TransactionService());
+
+    const message = await transactionController.getAddressTransactionsCount(req.params.address);
+
+    app.service('/transactions/address/:address').create({
+        text: message
+    });
+
+    res.json({
+        message: message
+    });
+});
+
+
 
 
 
