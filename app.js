@@ -5,6 +5,9 @@ const socketio = require('@feathersjs/socketio');
 const AddressService = require('./services/addresses.js');
 const addressController = require('./controllers/addresses');
 
+const BlockService = require('./services/blocks.js');
+const blockController = require('./controllers/blocks');
+
 // A messages service that allows to create new
 // and return all existing messages
 class MessageService {
@@ -68,43 +71,68 @@ app.service('messages').create({
     text: 'Hello world from the server'
 });
 
-
-
-// re-export the posts service on the /address/:address route
-
-
-/*
-// A hook that updates `data` with the route parameter
-function mapAddressToData(context) {
-    if (context.data && context.params.route.address) {
-        context.data.address = context.params.route.address;
-    }
-}
-
-// For the new route, map the `:address` route parameter to the query in a hook
-app.service('address/:address').hooks({
-    before: {
-        find(context) {
-            context.params.query.address = context.params.route.address;
-        },
-        create: mapAddressToData,
-        update: mapAddressToData,
-        patch: mapAddressToData
-    }
-});*/
-
-
-/*
-app.service('address').create({
-    text: 'Hello world from the asdfserver'
-});*/
-
 app.use('/address/:address', async (req, res) => {
     app.use('/address/:address', new AddressService());
 
     const message = await addressController.getAccountBalance(req.params.address);
 
     app.service('address/:address').create({
+        text: message
+    });
+
+    res.json({
+        message: message
+    });
+});
+
+app.use('/blocks/latest', async (req, res) => {
+    app.use('/blocks/latest', new BlockService());
+
+    const message = await blockController.getLatestBlock();
+
+    app.service('blocks/latest').create({
+        text: message
+    });
+
+    res.json({
+        message: message
+    });
+});
+
+app.use('/blocks/pending', async (req, res) => {
+    app.use('/blocks/pending', new BlockService());
+
+    const message = await blockController.getPendingBlocks();
+
+    app.service('blocks/pending').create({
+        text: message
+    });
+
+    res.json({
+        message: message
+    });
+});
+
+app.use('/blocks/identifier/:identifier', async (req, res) => {
+    app.use('/blocks/identifier/:identifier', new BlockService());
+
+    const message = await blockController.getBlockByIdentifier(req.params.identifier);
+
+    app.service('/blocks/identifier/:identifier').create({
+        text: message
+    });
+
+    res.json({
+        message: message
+    });
+});
+
+app.use('/blocks/:from/:count', async (req, res) => {
+    app.use('/blocks/:from/:count', new BlockService());
+
+    const message = await blockController.getMultipleBlocksAfterThreshold(req.params.from, req.params.count);
+
+    app.service('/blocks/:from/:count').create({
         text: message
     });
 
