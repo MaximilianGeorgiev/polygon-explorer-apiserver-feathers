@@ -1,15 +1,16 @@
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
+const io = require('socket.io-client');
 
 const AddressService = require('./services/addresses.js');
-const addressController = require('./controllers/addresses');
+const addressController = require('./controllers/http/addresses');
 
 const BlockService = require('./services/blocks.js');
-const blockController = require('./controllers/blocks');
+const blockController = require('./controllers/http/blocks');
 
 const TransactionService = require('./services/transactions.js');
-const transactionController = require('./controllers/transactions');
+const transactionController = require('./controllers/http/transactions');
 
 // A messages service that allows to create new
 // and return all existing messages
@@ -204,7 +205,6 @@ app.use('/transactions/address/:address', async (req, res) => {
         message: message
     });
 });
-
 
 
 

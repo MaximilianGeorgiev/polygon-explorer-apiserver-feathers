@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const web3 = new Web3('https://polygon-rpc.com/');
 
-const blocksController = require('../controllers/blocks.js');
+const blocksController = require('../controllers/http/blocks.js');
 
 class BlockService {
     constructor() {

@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const web3 = new Web3('https://polygon-rpc.com/');
 
-const addressController = require('../controllers/addresses.js');
+const addressController = require('../controllers/http/addresses.js');
 
 class AddressService {
     constructor() {
